@@ -15,3 +15,5 @@ create table test_table (
 );
 insert into test_table (id, value) values (1, 'one');
 insert into test_table (id, value) values (2, 'two');
+
+grant all on table test_table to squeel_test;

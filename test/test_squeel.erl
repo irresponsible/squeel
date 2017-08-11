@@ -3,8 +3,9 @@
 
 %% TODO: fetch from env
 -define(host, "localhost").
+-define(port, 10432).
 -define(user, "squeel_test").
--define(port, 10345).
+-define(database, "squeel_test_db").
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Tests
@@ -42,7 +43,7 @@ with_connection(F) ->
   with_connection(F, []).
 
 with_connection(F, Args) ->
-  Args2 = [{port, ?port}, {database, "squeel_test"} | Args],
+  Args2 = [{port, ?port}, {database, ?database} | Args],
   {ok, C} = epgsql:connect(?host, ?user, Args2),
   try
     F(C)

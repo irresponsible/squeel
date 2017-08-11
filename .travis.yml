@@ -1,0 +1,19 @@
+dist: trusty
+sudo: false
+
+language: erlang
+otp_release:
+  - 18.2
+  - 19.1
+  - 20
+before_script:
+  - sudo apt-get update -qq
+  # TODO: pin version
+  - sudo apt-get install postgresql postgresql-contrib
+addons:
+  - postgresql: "9.6"
+script:
+  - ./scripts/setup_test_db.sh
+  - ./scripts/start_test_db.sh
+  - ./scripts/populate_test_db.sh
+  - rebar3 compile && rebar3 skip_deps=true eunit
