@@ -13,7 +13,8 @@ before_script:
 addons:
   - postgresql: "9.6"
 script:
+  - export PATH="/usr/lib/postgresql/9.6/bin:$PATH"
   - ./scripts/setup_test_db.sh
   - ./scripts/start_test_db.sh
   - ./scripts/populate_test_db.sh
-  - rebar3 compile && rebar3 skip_deps=true eunit
+  - rebar3 compile && rebar3 eunit
