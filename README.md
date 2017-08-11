@@ -1,5 +1,9 @@
-squeel
+The irresponsible guild proudly presents...
+
+Squeel
 =====
+
+[![Build Status](https://travis-ci.org/irresponsible/squeel.svg?branch=master)](https://travis-ci.org/irresponsible/squeel)
 
 Squeel is a simple wrapper over epgsql, adding nicer return values for records (as property
 lists) and error emssages.
@@ -31,6 +35,7 @@ Test
 License
 -------
 
+```
 Copyright (c) 2017 Antonis Kalou <kalouantonis@protonmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -50,3 +55,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
