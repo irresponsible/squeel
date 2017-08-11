@@ -1,5 +1,5 @@
 {application, squeel,
- [{description, "An OTP library"},
+ [{description, "A simple abstraction of epgsql"},
   {vsn, "0.1.0"},
   {registered, []},
   {applications,
@@ -7,9 +7,9 @@
     stdlib
    ]},
   {env,[]},
-  {modules, []},
+  {modules, [squeel]},
 
-  {maintainers, []},
-  {licenses, ["Apache 2.0"]},
+  {maintainers, ["Antonis Kalou <kalouantonis@protonmail.com>"]},
+  {licenses, ["MIT"]},
   {links, []}
  ]}.
