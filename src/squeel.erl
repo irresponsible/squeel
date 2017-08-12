@@ -10,10 +10,12 @@
 
 -spec exec(pid(), string()) -> sql_result().
 
+%% Execute a SQL statement that takes no parameters
 exec(Conn, Stmt) -> exec(Conn, Stmt, []).
 
 -spec exec(pid(), string(), [term()]) -> sql_result().
 
+%% Execute a SQL statement that takes a list of parameters.
 exec(Conn, Stmt, Params) ->
   RawResult = epgsql:equery(Conn, Stmt, Params),
   parse_raw_result(RawResult).
