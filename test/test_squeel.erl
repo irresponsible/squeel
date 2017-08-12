@@ -20,21 +20,21 @@ exec_select_one_test() ->
   with_connection(
     fun(C) ->
         {ok, [Record]} = squeel:exec(C, "select * from test_table where id=1"),
-        [{id, 1}, {value, <<"one">>}] = Record
+        #{"id" := 1, "value" := <<"one">>} = Record
     end).
 
 exec_select_all_test() ->
   with_connection(
     fun(C) ->
         {ok, Records} = squeel:exec(C, "select * from test_table"),
-        [[{id, 1}, {value, <<"one">>}],
-         [{id, 2}, {value, <<"two">>}]] = Records
+        [#{"id" := 1, "value" := <<"one">>},
+         #{"id" := 2, "value" := <<"two">>}] = Records
     end).
 
 exec_select_count_test() ->
   with_connection(
    fun(C) ->
-       {ok, [[{count, 2}]]} = squeel:exec(C, "select count(*) from test_table")
+       {ok, [#{"count" := 2}]} = squeel:exec(C, "select count(*) from test_table")
    end).
 
 exec_select_large_query_test() ->
@@ -44,7 +44,7 @@ exec_select_large_query_test() ->
                                                max(id)  as id_max,
                                                min(id)  as id_min
                                           from test_table"),
-       [{id_count, 2}, {id_max, 2}, {id_min, 1}] = Result
+       #{"id_count" := 2, "id_max" := 2, "id_min" := 1} = Result
    end).
 
 exec_insert_test() ->
@@ -56,8 +56,8 @@ exec_insert_test() ->
 exec_insert_returning_test() ->
   with_rollback(
    fun(C) ->
-       {ok, 1, [[{id, 3}]]} = squeel:exec(C, "insert into test_table (id, value)
-                                                values (3, 'three') returning id")
+       {ok, 1, [#{"id" := 3}]} = squeel:exec(C, "insert into test_table (id, value)
+                                                   values (3, 'three') returning id")
    end).
 
 exec_update_one_test() ->

@@ -2,11 +2,10 @@
 
 -export([exec/2, exec/3]).
 
--type proplist()   :: [{term(), term()}].
--type sql_error()  :: {error, {atom(), binary(), proplist()}}.
--type sql_result() :: {ok, proplist()}           |
-                      {ok, number()}             |
-                      {ok, number(), proplist()} |
+-type sql_error()  :: {error, {atom(), binary(), map()}}.
+-type sql_result() :: {ok, [map()]}           |
+                      {ok, number()}          |
+                      {ok, number(), [map()]} |
                       sql_error().
 
 -spec exec(pid(), string()) -> sql_result().
@@ -33,11 +32,11 @@ strip_error({error, error, _, Reason, Message, Details}) ->
 
 column_names(Columns) ->
   lists:map(fun ({column, Name, _, _, _, _}) ->
-                binary_to_atom(Name, utf8)
+                binary_to_list(Name)
             end, Columns).
 
 result_to_proplist(Columns, Rows) ->
   ColNames = column_names(Columns),
   lists:map(fun(Val) ->
-                lists:zip(ColNames, tuple_to_list(Val))
+                maps:from_list(lists:zip(ColNames, tuple_to_list(Val)))
             end, Rows).
