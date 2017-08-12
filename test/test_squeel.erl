@@ -95,8 +95,8 @@ exec_error_test() ->
    fun(C) ->
        {error, Error} = squeel:exec(C, "insert into test_table (id, value) values (2, 'two')"),
        {unique_violation, _, Details} = Error,
-       <<"test_table">> = proplists:get_value(table_name, Details),
-       <<"test_table_pkey">> = proplists:get_value(constraint_name, Details)
+       <<"test_table">> = maps:get("table_name", Details),
+       <<"test_table_pkey">> = maps:get("constraint_name", Details)
    end).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

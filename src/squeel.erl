@@ -25,10 +25,10 @@ parse_raw_result({ok, Count}) ->
 parse_raw_result({ok, Count, Columns, Rows}) ->
   {ok, Count, result_to_proplist(Columns, Rows)};
 parse_raw_result({error, Error}) ->
-  strip_error(Error).
+  handle_sql_error(Error).
 
-strip_error({error, error, _, Reason, Message, Details}) ->
-  {error, {Reason, Message, Details}}.
+handle_sql_error({error, error, _, Reason, Message, Details}) ->
+  {error, {Reason, Message, proplist_to_map(Details)}}.
 
 column_names(Columns) ->
   lists:map(fun ({column, Name, _, _, _, _}) ->
@@ -40,3 +40,8 @@ result_to_proplist(Columns, Rows) ->
   lists:map(fun(Val) ->
                 maps:from_list(lists:zip(ColNames, tuple_to_list(Val)))
             end, Rows).
+
+proplist_to_map(List) ->
+  lists:foldl(fun({Key, Val}, Acc) ->
+                  maps:put(atom_to_list(Key), Val, Acc)
+              end, #{}, List).
