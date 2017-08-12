@@ -5,8 +5,8 @@ Squeel
 
 [![Build Status](https://travis-ci.org/irresponsible/squeel.svg?branch=master)](https://travis-ci.org/irresponsible/squeel)
 
-Squeel is a simple wrapper over epgsql, adding nicer return values for records (as property
-lists) and error emssages.
+Squeel is a simple wrapper over epgsql, adding nicer return values for records (maps) 
+and error emssages.
 
 Usage
 -----
@@ -16,7 +16,7 @@ Usage
 1> {ok, 1} = squeel:exec(Conn, "insert into my_table (a, b) values ($1, $2)", ["one", "two"]).
 2> {ok, [Record]} = squeel:exec(Conn, "select * from my_table LIMIT 1").
 3> Record.
-[{a, "one"}, {b, "two"}]
+#{"a" := <<"one">>, "b" := <<"two">>}
 ```
 
 Build
