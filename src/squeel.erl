@@ -33,9 +33,7 @@ handle_sql_error({error, error, _, Reason, Message, Details}) ->
   {error, {Reason, Message, proplist_to_map(Details)}}.
 
 column_names(Columns) ->
-  lists:map(fun ({column, Name, _, _, _, _}) ->
-                binary_to_list(Name)
-            end, Columns).
+  lists:map(fun ({column, Name, _, _, _, _}) -> Name end, Columns).
 
 result_to_proplist(Columns, Rows) ->
   ColNames = column_names(Columns),
